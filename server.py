@@ -52,7 +52,89 @@ def get_catalog():
 
 @app.get("/api/products/count")
 def total_count():
-    return json.dumps(len(catalog))
+    return json.dumps(
+
+    )
 
 
-app.run(debug=True)
+# get /api/products/total
+# return the sum of all prices
+
+@app.get("/api/products/total")
+def total_price():
+    total = 0
+
+    for prod in catalog:
+        total += prod["price"]
+
+    return json.dumps(total)
+
+
+# get /api/catalog/category
+# return all the products that belong to the received category
+
+@app.get("/api/catalog/<category>")
+def by_category(category):
+    results = []
+    for prod in catalog:
+        if prod["category"].lower() == category.lower():
+            results.append(prod)
+
+    return json.dumps(results)
+
+
+# get /api/catalog/lower/<amount>
+@app.get("/api/catalog/lower/<amount>")
+def lower_than(amount):
+    results = []
+    for prod in catalog:
+        if prod["price"] < amount:
+            results.append(prod)
+
+    return json.dumps(results)
+
+# get /api/category/unique
+# get the list of unique categoris
+
+
+@app.get("/api/catalog/unique")
+def unique_cats():
+    results = []
+    for prod in catalog:
+        category = prod["category"]
+        if not category in results:
+            results.append(category)
+
+    return json.dumps(results)
+
+
+@app.get("/api/test/colors")
+def unique_colors():
+    colors = ["red", 'blue', "Pink", "yelloW", "Red",
+              "Black", "BLUE", "RED", "BLACK", "YELLOW"]
+
+    results = []
+
+    for color in colors:
+        color = color.lower()
+        if not color in results:
+            results.append(color)
+
+    return json.dumps(results)
+
+
+@app.get("/api/test/count/<color>")
+def count_color(color):
+    colors = ["red", 'blue', "Pink", "yelloW", "Red",
+              "Black", "BLUE", "RED", "BLACK", "YELLOW"]
+    color = color.lower()
+    count = 0
+
+    for hue in colors:
+        if color == hue.lower():
+            count += 1
+
+    return json.dumps(count)
+
+
+app.run(port=5001, debug=True)

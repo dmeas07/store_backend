@@ -1,0 +1,26 @@
+# pip as the package manager for python projs
+
+# installed venv
+python -m pip install virtualenv
+
+# create a venv
+python -m venv venv
+
+# activate the venv
+win:  venv\Scripts\activate
+mac: source venv/bin/activate
+
+
+# deactivate the venv
+deactivate
+
+
+# installed flask
+python -m pip install flask
+
+
+# code
+
+
+# run the server
+python server.py
