@@ -23,4 +23,9 @@ python -m pip install flask
 
 
 # run the server
-python server.py
+# python server.py
+flask --app server --debug run
+
+mongodb+srv://daravy:74108520@cluster0.yju10tk.mongodb.net/?retryWrites=true&w=majority
+
+python -m pip install pymongo "pymongo[srv]" flask-pymongo certifi
